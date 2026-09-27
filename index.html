@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RAAL · Servicios de Movilidad y Traslados · Guayas y Santa Elena</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  :root{
+    --navy-900:#0A1628;
+    --navy-800:#0F2036;
+    --navy-700:#16304C;
+    --chrome-100:#F3F5F7;
+    --chrome-300:#C9CFD8;
+    --steel-500:#8D96A5;
+    --sand-400:#C89B5C;
+    --sand-300:#DDB77E;
+    --line:rgba(201,207,216,0.14);
+    --radius:4px;
+    --ease:0.22s ease;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--navy-900);
+    color:var(--chrome-100);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    margin:0;
+    color:var(--chrome-100);
+  }
+  p{margin:0;}
+  a{text-decoration:none;color:inherit;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 28px;position:relative;z-index:2;}
+  section{position:relative;z-index:2;}
+
+  /* Foco accesible */
+  a:focus-visible,button:focus-visible{
+    outline:2px solid var(--sand-400);
+    outline-offset:3px;
+    border-radius:2px;
+  }
+
+  /* ---------- Ruta de fondo en toda la página ---------- */
+  .page-route{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    z-index:0;
+    opacity:0.55;
+  }
+  .page-route .track{
+    fill:none;
+    stroke:var(--navy-700);
+    stroke-width:26;
+    stroke-linecap:round;
+    stroke-dasharray:1400;
+    stroke-dashoffset:1400;
+    animation:drawTrack 2.4s cubic-bezier(0.65, 0, 0.35, 1) 0.1s forwards;
+  }
+  .page-route .line{
+    fill:none;
+    stroke:url(#chromeGrad);
+    stroke-width:2.5;
+    stroke-linecap:round;
+    stroke-dasharray:1400;
+    stroke-dashoffset:1400;
+    animation:drawLine 2.8s cubic-bezier(0.65, 0, 0.35, 1) 0.35s forwards;
+  }
+  @keyframes drawTrack{ to{ stroke-dashoffset:0; } }
+  @keyframes drawLine{ to{ stroke-dashoffset:0; } }
+
+  @media (prefers-reduced-motion: reduce){
+    .page-route .track,
+    .page-route .line{
+      animation:none;
+      stroke-dashoffset:0;
+    }
+  }
+  @media (max-width:760px){
+    .page-route{opacity:0.28;}
+  }
+
+  /* ---------- Header ---------- */
+  header.site{
+    position:sticky;top:0;z-index:30;
+    background:rgba(10,22,40,0.9);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 28px;max-width:1120px;margin:0 auto;gap:18px;
+  }
+  .brand{
+    display:flex;align-items:center;gap:10px;
+    font-family:'Fraunces',serif;font-size:1.15rem;letter-spacing:0.06em;
+    color:var(--chrome-100);
+    white-space:nowrap;
+  }
+  .brand span{color:var(--sand-400);}
+  .nav-links{
+    display:flex;gap:26px;align-items:center;
+    font-size:0.92rem;color:var(--chrome-300);
+  }
+  .nav-links a{transition:color var(--ease);}
+  .nav-links a:hover{color:var(--sand-400);}
+  .nav a.cta-small{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--sand-400);color:var(--navy-900);
+    padding:9px 18px;border-radius:3px;
+    font-weight:600;font-size:0.92rem;
+    transition:background var(--ease);
+    white-space:nowrap;
+  }
+  .nav a.cta-small:hover{background:var(--sand-300);}
+  @media (max-width:820px){
+    .nav-links{display:none;}
+  }
+
+  /* Anclas con offset para el header sticky */
+  #cobertura,#servicios,#vehiculo,#galeria{scroll-margin-top:90px;}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    padding:96px 0 110px;
+    overflow:hidden;
+  }
+  .hero-inner{position:relative;max-width:620px;}
+  .hero h1{
+    font-size:clamp(2.1rem, 4.4vw, 3.4rem);
+    line-height:1.14;
+    letter-spacing:-0.01em;
+  }
+  .hero h1 em{
+    font-style:italic;
+    color:var(--sand-400);
+  }
+  .hero .lede{
+    margin-top:22px;
+    font-size:1.08rem;
+    color:var(--chrome-300);
+    max-width:520px;
+  }
+  .hero .actions{
+    margin-top:36px;
+    display:flex;gap:16px;flex-wrap:wrap;
+  }
+  .btn-primary{
+    display:inline-flex;align-items:center;gap:10px;
+    background:var(--sand-400);color:var(--navy-900);
+    padding:14px 26px;border-radius:3px;
+    font-weight:600;font-size:0.98rem;
+    transition:background var(--ease), transform var(--ease);
+    border:none;cursor:pointer;font-family:inherit;
+  }
+  .btn-primary:hover{background:var(--sand-300);transform:translateY(-1px);}
+  .btn-ghost{
+    display:inline-flex;align-items:center;gap:10px;
+    border:1px solid var(--line);
+    padding:14px 22px;border-radius:3px;
+    font-size:0.98rem;color:var(--chrome-300);
+    transition:border-color var(--ease), color var(--ease);
+  }
+  .btn-ghost:hover{border-color:var(--sand-400);color:var(--chrome-100);}
+
+  /* ---------- Section shell ---------- */
+  section{padding:76px 0;}
+  .section-head{max-width:580px;margin-bottom:48px;}
+  .section-head h2{font-size:clamp(1.6rem, 2.6vw, 2.1rem);}
+  .section-head p{margin-top:14px;color:var(--steel-500);font-size:1rem;}
+
+  /* ---------- Cobertura ---------- */
+  .cobertura{background:var(--navy-800);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .cob-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:30px;
+  }
+  .cob-card{
+    background:var(--navy-900);border:1px solid var(--line);padding:32px;border-radius:var(--radius);
+    transition:border-color var(--ease), transform var(--ease);
+  }
+  .cob-card:hover{border-color:rgba(200,155,92,0.4);transform:translateY(-2px);}
+  .cob-card i{font-size:1.6rem;color:var(--sand-400);margin-bottom:18px;}
+  .cob-card h3{font-size:1.25rem;margin-bottom:12px;font-family:'Inter',sans-serif;font-weight:600;}
+  .cob-card p{color:var(--steel-500);font-size:0.96rem;}
+
+  /* ---------- Servicios con imagen ---------- */
+  .servicios{display:flex;flex-direction:column;}
+  .servicio-row{
+    display:grid;
+    grid-template-columns:1.05fr 0.95fr;
+    gap:48px;
+    align-items:center;
+    padding:44px 0;
+    border-top:1px solid var(--line);
+  }
+  .servicios .servicio-row:last-child{border-bottom:1px solid var(--line);}
+  .servicio-row.reverse .servicio-media{order:-1;}
+  .servicio-text{display:flex;gap:22px;align-items:flex-start;}
+  .servicio-icon{
+    flex:0 0 auto;
+    width:52px;height:52px;
+    border:1px solid var(--line);
+    border-radius:3px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.2rem;
+    color:var(--sand-400);
+  }
+  .servicio-row h3{font-size:1.22rem;font-weight:600;font-family:'Inter',sans-serif;}
+  .servicio-row p{margin-top:8px;color:var(--steel-500);font-size:0.98rem;max-width:480px;}
+  .servicio-media{
+    position:relative;
+    border-radius:var(--radius);
+    overflow:hidden;
+    border:1px solid var(--line);
+  }
+  .servicio-media img{
+    width:100%;height:280px;object-fit:cover;
+    transition:transform 0.5s ease;
+  }
+  .servicio-media:hover img{transform:scale(1.04);}
+  @media (max-width:860px){
+    .servicio-row{grid-template-columns:1fr;gap:24px;padding:34px 0;}
+    .servicio-row.reverse .servicio-media{order:0;}
+    .servicio-media img{height:220px;}
+  }
+
+  /* ---------- Vehículo ---------- */
+  .vehiculo-section{
+    background:linear-gradient(180deg, var(--navy-900) 0%, var(--navy-800) 100%);
+  }
+  .vehiculo-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;
+  }
+  @media(max-width:900px){.vehiculo-grid{grid-template-columns:1fr;}}
+
+  /* Galería del vehículo */
+  .veh-galeria{display:flex;flex-direction:column;gap:12px;}
+  .veh-main{
+    position:relative;
+    border-radius:var(--radius);
+    overflow:hidden;
+    border:1px solid var(--line);
+    cursor:zoom-in;
+  }
+  .veh-main img{
+    width:100%;height:340px;object-fit:cover;
+    transition:opacity 0.3s ease;
+  }
+  .veh-main .zoom-hint{
+    position:absolute;bottom:12px;right:12px;
+    background:rgba(10,22,40,0.75);
+    color:var(--chrome-100);
+    font-size:0.78rem;
+    padding:6px 12px;border-radius:3px;
+    display:flex;align-items:center;gap:6px;
+    backdrop-filter:blur(4px);
+    pointer-events:none;
+  }
+  .veh-thumbs{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+  }
+  .veh-thumb{
+    border:1px solid var(--line);
+    border-radius:3px;
+    overflow:hidden;
+    cursor:pointer;
+    padding:0;background:none;
+    transition:border-color var(--ease), opacity var(--ease);
+    opacity:0.6;
+  }
+  .veh-thumb img{width:100%;height:64px;object-fit:cover;display:block;}
+  .veh-thumb:hover{opacity:1;}
+  .veh-thumb.active{border-color:var(--sand-400);opacity:1;}
+
+  .vehiculo-features{
+    display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:26px;
+  }
+  .v-feat{
+    background:var(--navy-900);border:1px solid var(--line);padding:16px;border-radius:var(--radius);
+  }
+  .v-feat i{color:var(--sand-400);margin-bottom:8px;font-size:1.2rem;}
+  .v-feat h4{font-size:0.95rem;font-weight:600;margin-bottom:4px;}
+  .v-feat p{font-size:0.85rem;color:var(--steel-500);}
+
+  /* Lightbox */
+  .lightbox{
+    position:fixed;inset:0;
+    background:rgba(10,22,40,0.94);
+    backdrop-filter:blur(6px);
+    display:none;
+    align-items:center;justify-content:center;
+    z-index:100;
+    padding:30px;
+  }
+  .lightbox.open{display:flex;}
+  .lightbox img{
+    max-width:min(1000px,92vw);
+    max-height:82vh;
+    object-fit:contain;
+    border-radius:var(--radius);
+    border:1px solid var(--line);
+  }
+  .lightbox-close{
+    position:absolute;top:22px;right:26px;
+    background:none;border:none;color:var(--chrome-100);
+    font-size:1.6rem;cursor:pointer;
+    width:44px;height:44px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    transition:background var(--ease), color var(--ease);
+  }
+  .lightbox-close:hover{background:rgba(255,255,255,0.08);color:var(--sand-400);}
+
+  /* ---------- Galería destinos (carrusel) ---------- */
+  .galeria-carousel{position:relative;}
+  .galeria-scroll{
+    display:flex;gap:18px;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    scroll-behavior:smooth;
+    padding:4px;margin:-4px;
+    /* Barra de scroll oculta: se navega con flechas, puntos, teclado o swipe */
+    scrollbar-width:none;
+    -ms-overflow-style:none;
+  }
+  .galeria-scroll::-webkit-scrollbar{display:none;width:0;height:0;}
+  .galeria-scroll:focus-visible{outline:2px solid var(--sand-400);outline-offset:4px;border-radius:4px;}
+  .galeria-item{
+    flex:0 0 calc((100% - 18px) / 2);   /* 2 tarjetas visibles en escritorio */
+    min-width:0;
+    scroll-snap-align:start;
+    overflow:hidden;border-radius:3px;
+  }
+  .galeria-item img{
+    width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;
+    border-radius:3px;border:1px solid var(--line);
+    transition:transform 0.4s ease;
+  }
+  .galeria-item:hover img{transform:scale(1.03);}
+  .galeria-item p{margin-top:12px;font-size:0.92rem;color:var(--chrome-300);}
+
+  /* Controles del carrusel */
+  .galeria-nav{
+    display:flex;align-items:center;justify-content:space-between;
+    gap:16px;margin-top:22px;
+  }
+  .galeria-nav[hidden]{display:none;}
+  .galeria-arrow{
+    width:44px;height:44px;flex:0 0 auto;border-radius:50%;
+    border:1px solid var(--line);background:transparent;
+    color:var(--chrome-100);font-size:0.95rem;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    transition:border-color var(--ease), color var(--ease), opacity var(--ease);
+  }
+  .galeria-arrow:hover:not(:disabled){border-color:var(--sand-400);color:var(--sand-400);}
+  .galeria-arrow:disabled{opacity:0.28;cursor:default;}
+  .galeria-dots{display:flex;align-items:center;gap:10px;}
+  .galeria-dot{
+    width:8px;height:8px;padding:0;border-radius:50%;
+    border:1px solid var(--steel-500);background:transparent;cursor:pointer;
+    transition:width var(--ease), background var(--ease), border-color var(--ease);
+  }
+  .galeria-dot:hover{border-color:var(--sand-400);}
+  .galeria-dot.active{width:24px;border-radius:5px;background:var(--sand-400);border-color:var(--sand-400);}
+
+  /* ---------- CTA final ---------- */
+  .cta-final{
+    text-align:left;
+    background:var(--navy-800);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .cta-final .wrap{
+    display:flex;align-items:center;justify-content:space-between;
+    gap:24px;flex-wrap:wrap;
+    padding:56px 28px;
+  }
+  .cta-final h2{font-size:clamp(1.5rem,2.6vw,2rem);max-width:480px;}
+
+  /* ---------- Footer ---------- */
+  footer{padding:40px 0;position:relative;z-index:2;}
+  .foot-row{
+    display:flex;align-items:center;justify-content:space-between;
+    flex-wrap:wrap;gap:16px;
+    color:var(--steel-500);font-size:0.88rem;
+  }
+  .foot-social{display:flex;gap:14px;font-size:1.05rem;}
+  .foot-social a{color:var(--steel-500);transition:color var(--ease);}
+  .foot-social a:hover{color:var(--sand-400);}
+
+  @media (max-width:640px){
+    .servicio-text{flex-direction:column;gap:14px;}
+    .cta-final .wrap{padding:44px 24px;}
+    .vehiculo-features{grid-template-columns:1fr;}
+    .veh-thumbs{grid-template-columns:repeat(3,1fr);}
+    .veh-main img{height:240px;}
+    .galeria-item{flex:0 0 100%;}
+    .galeria-item img{aspect-ratio:4/3;}
+    .galeria-arrow{width:40px;height:40px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== Ruta animada de fondo, recorre toda la página ===== -->
+<svg class="page-route" viewBox="0 0 100 1000" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <defs>
+    <linearGradient id="chromeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F3F5F7"/>
+      <stop offset="45%" stop-color="#9CA6B4"/>
+      <stop offset="100%" stop-color="#F3F5F7"/>
+    </linearGradient>
+  </defs>
+  <path class="track" d="M82 0 C 60 90, 88 170, 55 250 C 22 330, 78 410, 45 500 C 12 590, 70 670, 40 760 C 15 840, 60 920, 30 1000"/>
+  <path class="line" id="routeLine" d="M82 0 C 60 90, 88 170, 55 250 C 22 330, 78 410, 45 500 C 12 590, 70 670, 40 760 C 15 840, 60 920, 30 1000"/>
+</svg>
+
+<header class="site">
+  <div class="nav">
+    <div class="brand">RAAL <span>·</span> Movilidad</div>
+    <nav class="nav-links" aria-label="Navegación principal">
+      <a href="#cobertura">Cobertura</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#vehiculo">Vehículo</a>
+      <a href="#galeria">Galería</a>
+    </nav>
+    <a class="cta-small" href="https://wa.me/TU_NUMERO_AQUI?text=Hola,%20necesito%20cotizar%20un%20traslado" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">
+      <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Escríbeme
+    </a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-inner">
+      <h1>Tu traslado privado, coordinado <em>directo y sin intermediarios</em>.</h1>
+      <p class="lede">Movilidad segura entre la Provincia del Guayas y la Provincia de Santa Elena. Servicio puerta a puerta, puntual y con unidades modernas y confortables.</p>
+      <div class="actions">
+        <a class="btn-primary" href="https://wa.me/TU_NUMERO_AQUI?text=Hola,%20necesito%20cotizar%20un%20traslado" target="_blank" rel="noopener">
+          <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Cotizar por WhatsApp
+        </a>
+        <a class="btn-ghost" href="#cobertura">Conocer rutas</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Cobertura -->
+<section id="cobertura" class="cobertura">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Cobertura Especializada</h2>
+      <p>Conectamos de forma directa los puntos clave de la costa sin demoras ni transbordos innecesarios.</p>
+    </div>
+    <div class="cob-grid">
+      <div class="cob-card">
+        <i class="fa-solid fa-city" aria-hidden="true"></i>
+        <h3>Provincia del Guayas</h3>
+        <p>Recogida puntual en Guayaquil (aeropuerto, terminal terrestre, domicilios u hoteles) para llevarte con total comodidad hacia cualquier punto de la costa.</p>
+      </div>
+      <div class="cob-card">
+        <i class="fa-solid fa-umbrella-beach" aria-hidden="true"></i>
+        <h3>Provincia de Santa Elena</h3>
+        <p>Destinos directos a hoteles, residencias o puntos turísticos en Salinas, Ballenita, La Libertad, Manglaralto, Olón, Montañita y toda la Ruta del Spondylus.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Servicios con imagen -->
+<section id="servicios">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Servicios a tu medida</h2>
+      <p>Cada viaje se planifica según tus horarios y requerimientos específicos.</p>
+    </div>
+    <div class="servicios">
+
+      <div class="servicio-row">
+        <div class="servicio-text">
+          <div class="servicio-icon"><i class="fa-solid fa-car-side" aria-hidden="true"></i></div>
+          <div>
+            <h3>Traslados Puerta a Puerta</h3>
+            <p>Te buscamos en el punto de origen exacto y te dejamos en la puerta de tu destino, optimizando tu tiempo.</p>
+          </div>
+        </div>
+        <div class="servicio-media">
+          <img src="https://media.codeleo.dev/raal/puerta-puerta.jpg" alt="Traslado puerta a puerta" loading="lazy">
+        </div>
+      </div>
+
+      <div class="servicio-row reverse">
+        <div class="servicio-text">
+          <div class="servicio-icon"><i class="fa-solid fa-box-open" aria-hidden="true"></i></div>
+          <div>
+            <h3>Encomiendas y Envíos Seguros</h3>
+            <p>Transportamos paquetes y documentos urgentes entre Guayas y Santa Elena con la misma seguridad y cuidado que un pasajero.</p>
+          </div>
+        </div>
+        <div class="servicio-media">
+          <img src="https://media.codeleo.dev/raal/encomiendas.jpg" alt="Encomiendas y envíos seguros" loading="lazy">
+        </div>
+      </div>
+
+      <div class="servicio-row">
+        <div class="servicio-text">
+          <div class="servicio-icon"><i class="fa-solid fa-map-location-dot" aria-hidden="true"></i></div>
+          <div>
+            <h3>Tours y Recorridos Turísticos</h3>
+            <p>Explora los mejores atractivos: La Lobería, Chipipe, miradores y avistamiento de ballenas en temporada de forma privada.</p>
+          </div>
+        </div>
+        <div class="servicio-media">
+          <img src="https://media.codeleo.dev/raal/recorrido.png" alt="Tours y recorridos turísticos" loading="lazy">
+        </div>
+      </div>
+
+      <div class="servicio-row reverse">
+        <div class="servicio-text">
+          <div class="servicio-icon"><i class="fa-solid fa-camera" aria-hidden="true"></i></div>
+          <div>
+            <h3>Registro Fotográfico del Viaje</h3>
+            <p>Capturamos los mejores momentos de tu recorrido para que además de un excelente viaje, te lleves recuerdos memorables.</p>
+          </div>
+        </div>
+        <div class="servicio-media">
+          <img src="https://picsum.photos/seed/raal-foto/720/520" alt="Registro fotográfico del viaje" loading="lazy">
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Vehículo con galería -->
+<section id="vehiculo" class="vehiculo-section">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Viaja cómodo, viaja seguro</h2>
+      <p>Unidades totalmente nuevas, impecables y acondicionadas para que el trayecto entre Guayas y Santa Elena sea una experiencia de descanso. Toca las miniaturas para revisar cada detalle.</p>
+    </div>
+    <div class="vehiculo-grid">
+
+      <div class="veh-galeria">
+        <div class="veh-main" id="vehMain" role="button" tabindex="0" aria-label="Ampliar imagen del vehículo">
+          <img id="vehMainImg" src="https://media.codeleo.dev/raal/vehicle-1.jpg" alt="Vista frontal del vehículo RAAL">
+          <span class="zoom-hint"><i class="fa-solid fa-magnifying-glass-plus" aria-hidden="true"></i> Ver detalle</span>
+        </div>
+        <div class="veh-thumbs" role="tablist" aria-label="Miniaturas del vehículo">
+          <button class="veh-thumb active" role="tab" aria-selected="true" data-src="https://media.codeleo.dev/raal/vehicle-1.jpg" aria-label="Vista frontal">
+            <img src="https://media.codeleo.dev/raal/vehicle-1.jpg" alt="" loading="lazy">
+          </button>
+          <button class="veh-thumb" role="tab" aria-selected="false" data-src="https://media.codeleo.dev/raal/vehicle-2.jpg" aria-label="Interior y asientos">
+            <img src="https://media.codeleo.dev/raal/vehicle-2.jpg" alt="" loading="lazy">
+          </button>
+          <button class="veh-thumb" role="tab" aria-selected="false" data-src="https://media.codeleo.dev/raal/vehicle-3.jpg" aria-label="Espacio para equipaje">
+            <img src="https://media.codeleo.dev/raal/vehicle-3.jpg" alt="" loading="lazy">
+          </button>
+          <button class="veh-thumb" role="tab" aria-selected="false" data-src="https://media.codeleo.dev/raal/vehicle-4.jpg" aria-label="Vista lateral">
+            <img src="https://media.codeleo.dev/raal/vehicle-4.jpg" alt="" loading="lazy">
+          </button>
+        </div>
+      </div>
+
+      <div>
+        <div class="vehiculo-features">
+          <div class="v-feat">
+            <i class="fa-solid fa-snowflake" aria-hidden="true"></i>
+            <h4>Aire acondicionado</h4>
+            <p>Climatización óptima durante todo el recorrido por la costa.</p>
+          </div>
+          <div class="v-feat">
+            <i class="fa-solid fa-spray-can-sparkles" aria-hidden="true"></i>
+            <h4>Limpieza impecable</h4>
+            <p>Sanitización y orden riguroso antes de cada servicio.</p>
+          </div>
+          <div class="v-feat">
+            <i class="fa-solid fa-couch" aria-hidden="true"></i>
+            <h4>Amplio espacio</h4>
+            <p>Asientos cómodos y espacio generoso para equipaje.</p>
+          </div>
+          <div class="v-feat">
+            <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+            <h4>Unidades modernas</h4>
+            <p>Vehículos en excelente estado técnico y revisión al día.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Galería destinos -->
+<section id="galeria">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Galería de Destinos y Experiencias</h2>
+      <p>Una muestra de los lugares que visitamos y los momentos compartidos con quienes ya viajan con nosotros.</p>
+    </div>
+    <div class="galeria-carousel">
+      <div class="galeria-scroll" id="galeriaScroll" tabindex="0" role="group" aria-roledescription="carrusel" aria-label="Galería de destinos y experiencias">
+        <div class="galeria-item">
+          <img src="https://media.codeleo.dev/raal/loberia.jpg" alt="La Lobería, Salinas" loading="lazy">
+          <p>La Lobería, Salinas</p>
+        </div>
+        <div class="galeria-item">
+          <img src="https://media.codeleo.dev/raal/chipipe.jpg" alt="Chipipe" loading="lazy">
+          <p>Playa Chipipe</p>
+        </div>
+        <div class="galeria-item">
+          <img src="https://media.codeleo.dev/raal/ballenas.jpg" alt="Avistamiento de ballenas" loading="lazy">
+          <p>Temporada de ballenas jorobadas</p>
+        </div>
+        <div class="galeria-item">
+          <img src="https://media.codeleo.dev/raal/spondilusd.jpg" alt="Ruta del Spondylus" loading="lazy">
+          <p>Recorridos Ruta del Spondylus</p>
+        </div>
+      </div>
+
+      <div class="galeria-nav" id="galeriaNav">
+        <button type="button" class="galeria-arrow" id="galeriaPrev" aria-label="Ver destinos anteriores">
+          <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+        </button>
+        <div class="galeria-dots" id="galeriaDots"></div>
+        <button type="button" class="galeria-arrow" id="galeriaNext" aria-label="Ver destinos siguientes">
+          <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA final -->
+<section class="cta-final">
+  <div class="wrap">
+    <h2>¿Listo para coordinar tu traslado entre Guayas y Santa Elena?</h2>
+    <a class="btn-primary" href="https://wa.me/TU_NUMERO_AQUI?text=Hola,%20quiero%20coordinar%20un%20viaje" target="_blank" rel="noopener">
+      <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Escríbeme por WhatsApp
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-row">
+    <span>RAAL Servicios de Movilidad · Guayas y Santa Elena, Ecuador</span>
+    <div class="foot-social">
+      <a href="#" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+      <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a>
+    </div>
+  </div>
+</footer>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Imagen ampliada del vehículo">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Cerrar imagen ampliada"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+  <img id="lightboxImg" src="" alt="Imagen ampliada del vehículo">
+</div>
+
+<script>
+(function(){
+  /* =========================================================
+     1) RUTA DE FONDO: se pinta sola + refuerzo con scroll
+     ========================================================= */
+  var line  = document.getElementById('routeLine');
+  var track = document.querySelector('.page-route .track');
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if(line && track){
+    // Longitud real del path (evita desajustes con el dasharray fijo)
+    var lineLen  = line.getTotalLength();
+    var trackLen = track.getTotalLength();
+
+    line.style.strokeDasharray  = lineLen;
+    line.style.strokeDashoffset = lineLen;
+    track.style.strokeDasharray  = trackLen;
+    track.style.strokeDashoffset = trackLen;
+
+    if(reduceMotion){
+      line.style.strokeDashoffset  = 0;
+      track.style.strokeDashoffset = 0;
+    } else {
+      // Efecto de "pintado" inicial, replicando el hero original
+      function paint(el, from, to, duration, delay){
+        var start = null;
+        var stopped = false;
+        function step(ts){
+          if(stopped) return;
+          if(start === null) start = ts + (delay || 0);
+          if(ts < start){ requestAnimationFrame(step); return; }
+          var t = Math.min((ts - start) / duration, 1);
+          // easeInOutCubic: trazo natural
+          var eased = t < 0.5
+            ? 4 * t * t * t
+            : 1 - Math.pow(-2 * t + 2, 3) / 2;
+          el.style.strokeDashoffset = from + (to - from) * eased;
+          if(t < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+        // Permite cancelar la animación desde fuera (refuerzo con scroll)
+        return function(){ stopped = true; };
+      }
+
+      /* 1.a) La ruta de fondo se "pinta" sola al cargar la página */
+      var stopTrack = paint(track, trackLen, 0, 2400, 100);
+      var stopLine  = paint(line,  lineLen,  0, 2800, 350);
+
+      /* 1.b) Refuerzo con scroll: si el usuario se desplaza antes de que
+             termine la animación, la ruta se completa para no dejarla a medias */
+      var routeDone = false;
+      function finishRoute(){
+        if(routeDone) return;
+        routeDone = true;
+        if(typeof stopTrack === 'function') stopTrack();
+        if(typeof stopLine === 'function')  stopLine();
+        line.style.strokeDashoffset  = 0;
+        track.style.strokeDashoffset = 0;
+      }
+      window.addEventListener('scroll', function(){
+        if(window.scrollY > 40) finishRoute();
+      }, { passive:true });
+      if(window.scrollY > 40) finishRoute();
+    }
+  }
+
+  /* =========================================================
+     2) GALERÍA DEL VEHÍCULO
+        Miniaturas: Frontal / Interior / Equipaje / Lateral
+        Al hacer click, cambia la imagen principal con un fade suave.
+     ========================================================= */
+  var vehMain    = document.getElementById('vehMain');
+  var vehMainImg = document.getElementById('vehMainImg');
+  var vehThumbs  = document.querySelectorAll('.veh-thumb');
+
+  if(vehMain && vehMainImg && vehThumbs.length){
+    Array.prototype.forEach.call(vehThumbs, function(btn){
+      btn.addEventListener('click', function(){
+        var src = btn.getAttribute('data-src');
+        if(!src || src === vehMainImg.getAttribute('src')) return;
+
+        // Crossfade breve para que el cambio no sea brusco
+        vehMainImg.style.opacity = '0';
+        window.setTimeout(function(){
+          vehMainImg.setAttribute('src', src);
+          vehMainImg.setAttribute('alt', btn.getAttribute('aria-label') || 'Vista del vehículo');
+          vehMainImg.style.opacity = '1';
+        }, 150);
+
+        // Estado activo (visual + accesible)
+        Array.prototype.forEach.call(vehThumbs, function(other){
+          other.classList.remove('active');
+          other.setAttribute('aria-selected', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+      });
+    });
+  }
+
+  /* =========================================================
+     3) LIGHTBOX "VER DETALLE"
+        Abre la imagen principal del vehículo en tamaño ampliado.
+        Se cierra con la X, click fuera de la imagen o tecla Escape.
+     ========================================================= */
+  var lightbox      = document.getElementById('lightbox');
+  var lightboxImg   = document.getElementById('lightboxImg');
+  var lightboxClose = document.getElementById('lightboxClose');
+  var lastFocused   = null;
+
+  function openLightbox(){
+    if(!lightbox || !lightboxImg || !vehMainImg) return;
+    lightboxImg.setAttribute('src', vehMainImg.getAttribute('src'));
+    lightboxImg.setAttribute('alt', vehMainImg.getAttribute('alt') || 'Imagen ampliada del vehículo');
+    lightbox.classList.add('open');
+    lastFocused = document.activeElement;
+    if(lightboxClose) lightboxClose.focus();
+  }
+
+  function closeLightbox(){
+    if(!lightbox) return;
+    lightbox.classList.remove('open');
+    if(lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+  }
+
+  if(vehMain){
+    // Click sobre la imagen principal
+    vehMain.addEventListener('click', openLightbox);
+    // Accesibilidad: Enter o Espacio también abren el detalle
+    vehMain.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar'){
+        e.preventDefault();
+        openLightbox();
+      }
+    });
+  }
+
+  if(lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+
+  // Cerrar al hacer click fuera de la imagen ampliada
+  if(lightbox){
+    lightbox.addEventListener('click', function(e){
+      if(e.target === lightbox) closeLightbox();
+    });
+  }
+
+  // Cerrar con la tecla Escape
+  document.addEventListener('keydown', function(e){
+    if((e.key === 'Escape' || e.key === 'Esc') && lightbox && lightbox.classList.contains('open')){
+      closeLightbox();
+    }
+  });
+  /* =========================================================
+     4) CARRUSEL · GALERÍA DE DESTINOS
+        Se navega con flechas, puntos, teclado (← →) y swipe nativo.
+        La barra de scroll queda oculta por CSS.
+     ========================================================= */
+  var gViewport = document.getElementById('galeriaScroll');
+  var gNav      = document.getElementById('galeriaNav');
+  var gPrev     = document.getElementById('galeriaPrev');
+  var gNext     = document.getElementById('galeriaNext');
+  var gDots     = document.getElementById('galeriaDots');
+
+  if(gViewport && gNav && gPrev && gNext && gDots){
+    var gItems = gViewport.querySelectorAll('.galeria-item');
+    var gPage  = 0;
+    var gPages = 1;
+
+    // Separación real entre tarjetas (viene del CSS)
+    function gGap(){
+      var cs  = window.getComputedStyle(gViewport);
+      var gap = parseFloat(cs.columnGap || cs.gap);
+      return isNaN(gap) ? 0 : gap;
+    }
+
+    // Cuántas tarjetas se ven a la vez según el ancho disponible
+    function gPerView(){
+      if(!gItems.length) return 1;
+      var iw = gItems[0].getBoundingClientRect().width;
+      if(!iw) return 1;
+      return Math.max(1, Math.round((gViewport.clientWidth + gGap()) / (iw + gGap())));
+    }
+
+    // Desplazamiento exacto al que arranca la tarjeta i
+    function gOffset(i){
+      i = Math.max(0, Math.min(i, gItems.length - 1));
+      var vRect = gViewport.getBoundingClientRect();
+      var iRect = gItems[i].getBoundingClientRect();
+      return gViewport.scrollLeft + (iRect.left - vRect.left);
+    }
+
+    function gPaint(){
+      var dots = gDots.querySelectorAll('.galeria-dot');
+      for(var i = 0; i < dots.length; i++){
+        if(i === gPage){
+          dots[i].classList.add('active');
+          dots[i].setAttribute('aria-current', 'true');
+        } else {
+          dots[i].classList.remove('active');
+          dots[i].removeAttribute('aria-current');
+        }
+      }
+      gPrev.disabled = (gPage === 0);
+      gNext.disabled = (gPage >= gPages - 1);
+    }
+
+    function gGoTo(page){
+      var perView = gPerView();
+      gPage = Math.max(0, Math.min(page, gPages - 1));
+      gViewport.scrollTo({ left: gOffset(gPage * perView), behavior: 'smooth' });
+      gPaint();
+    }
+
+    // Reconstruye puntos y calcula páginas (cambia según el ancho)
+    function gBuild(){
+      var perView = gPerView();
+      gPages = Math.max(1, Math.ceil(gItems.length / perView));
+      gDots.innerHTML = '';
+      for(var i = 0; i < gPages; i++){
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'galeria-dot';
+        b.setAttribute('aria-label', 'Ir a la vista ' + (i + 1) + ' de ' + gPages);
+        (function(page){
+          b.addEventListener('click', function(){ gGoTo(page); });
+        })(i);
+        gDots.appendChild(b);
+      }
+      // Si todo cabe en pantalla, no hacen falta controles
+      gNav.hidden = (gPages <= 1);
+    }
+
+    // Sincroniza puntos y flechas con la posición real del scroll (incluye swipe)
+    function gSync(){
+      var perView = gPerView();
+      var idx = 0, best = Infinity, i, d;
+      for(i = 0; i < gItems.length; i++){
+        d = Math.abs(gOffset(i) - gViewport.scrollLeft);
+        if(d < best){ best = d; idx = i; }
+      }
+      gPage = Math.max(0, Math.min(gPages - 1, Math.round(idx / perView)));
+      gPaint();
+    }
+
+    gPrev.addEventListener('click', function(){ gGoTo(gPage - 1); });
+    gNext.addEventListener('click', function(){ gGoTo(gPage + 1); });
+
+    var gTicking = false;
+    gViewport.addEventListener('scroll', function(){
+      if(gTicking) return;
+      gTicking = true;
+      window.requestAnimationFrame(function(){ gTicking = false; gSync(); });
+    }, { passive:true });
+
+    // Teclado: flechas izquierda / derecha
+    gViewport.addEventListener('keydown', function(e){
+      if(e.key === 'ArrowLeft'){ e.preventDefault(); gGoTo(gPage - 1); }
+      else if(e.key === 'ArrowRight'){ e.preventDefault(); gGoTo(gPage + 1); }
+    });
+
+    // Al redimensionar cambia el número de tarjetas visibles
+    var gResizeTimer = null;
+    window.addEventListener('resize', function(){
+      window.clearTimeout(gResizeTimer);
+      gResizeTimer = window.setTimeout(function(){
+        gBuild();
+        gGoTo(Math.min(gPage, gPages - 1));
+      }, 150);
+    });
+
+    gBuild();
+    gSync();
+  }
+})();
+</script>
+
+</body>
+</html>
