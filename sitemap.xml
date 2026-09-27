@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sitemap de RAAL · Servicios de Movilidad · Guayas y Santa Elena -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://raal.codeleo.dev/</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://media.codeleo.dev/raal/raal.jpg</image:loc>
+      <image:caption>RAAL Servicios de Movilidad · traslados privados en Guayas y Santa Elena</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://media.codeleo.dev/raal/vehicle-1.jpg</image:loc>
+      <image:caption>Vehículo moderno y climatizado para traslados privados</image:caption>
+    </image:image>
+  </url>
+</urlset>

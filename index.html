@@ -4,8 +4,64 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RAAL · Servicios de Movilidad y Traslados · Guayas y Santa Elena</title>
+
+<!-- ========== SEO básico ========== -->
+<meta name="description" content="Traslados privados puerta a puerta entre Guayas y Santa Elena: pasajeros, encomiendas y tours por la Ruta del Spondylus. Puntual, directo y sin intermediarios.">
+<meta name="keywords" content="traslados Guayaquil Salinas, transporte privado Guayas Santa Elena, traslado aeropuerto Guayaquil, encomiendas Guayaquil Santa Elena, tours Ruta del Spondylus, avistamiento de ballenas jorobadas, traslado privado Montañita, movilidad privada Ecuador">
+<meta name="author" content="RAAL Servicios de Movilidad">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<!-- ========== URL canónica e idioma ========== -->
+<link rel="canonical" href="https://raal.codeleo.dev/">
+<link rel="alternate" hreflang="es-ec" href="https://raal.codeleo.dev/">
+<link rel="alternate" hreflang="es" href="https://raal.codeleo.dev/">
+<link rel="alternate" hreflang="x-default" href="https://raal.codeleo.dev/">
+
+<!-- ========== Apariencia y ubicación ========== -->
+<meta name="theme-color" content="#0A1628">
+<meta name="color-scheme" content="dark">
+<meta name="geo.region" content="EC-G">
+<meta name="geo.placename" content="Guayaquil, Guayas, Ecuador">
+<meta name="geo.position" content="-2.196160;-79.886210">
+<meta name="ICBM" content="-2.196160, -79.886210">
+
+<!-- ========== Iconos y PWA ========== -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='12'%20fill='%230A1628'/%3E%3Ctext%20x='32'%20y='46'%20font-family='Georgia,serif'%20font-size='40'%20font-weight='700'%20text-anchor='middle'%20fill='%23C89B5C'%3ER%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="apple-mobile-web-app-title" content="RAAL">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
+
+<!-- ========== Open Graph (WhatsApp, Facebook, LinkedIn) ========== -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="RAAL Servicios de Movilidad">
+<meta property="og:locale" content="es_EC">
+<meta property="og:url" content="https://raal.codeleo.dev/">
+<meta property="og:title" content="RAAL · Traslados privados entre Guayas y Santa Elena">
+<meta property="og:description" content="Traslados puerta a puerta, encomiendas seguras y tours por la Ruta del Spondylus. Coordinamos directo, sin intermediarios y con la puntualidad que necesitas.">
+<meta property="og:image" content="https://media.codeleo.dev/raal/raal.jpg">
+<meta property="og:image:secure_url" content="https://media.codeleo.dev/raal/raal.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1122">
+<meta property="og:image:height" content="1122">
+<meta property="og:image:alt" content="Vehículo e identidad de RAAL, traslados privados en Guayas y Santa Elena">
+
+<!-- ========== Twitter / X ========== -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="RAAL · Traslados privados entre Guayas y Santa Elena">
+<meta name="twitter:description" content="Traslados puerta a puerta, encomiendas seguras y tours por la Ruta del Spondylus. Directo y sin intermediarios.">
+<meta name="twitter:image" content="https://media.codeleo.dev/raal/raal.jpg">
+<meta name="twitter:image:alt" content="Vehículo e identidad de RAAL, traslados privados en Guayas y Santa Elena">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://media.codeleo.dev" crossorigin>
+<link rel="dns-prefetch" href="https://media.codeleo.dev">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
@@ -415,6 +471,130 @@
     .galeria-arrow{width:40px;height:40px;}
   }
 </style>
+
+<!-- ========== Datos estructurados (schema.org) ==========
+     Negocio de movilidad + sitio web + página + catálogo de servicios.
+     Si el dominio cambia, actualiza "url" y los "@id" de este bloque. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": ["LocalBusiness", "TaxiService"],
+      "@id": "https://raal.codeleo.dev/#negocio",
+      "name": "RAAL Servicios de Movilidad",
+      "alternateName": "RAAL Movilidad",
+      "slogan": "Tu traslado privado, coordinado directo y sin intermediarios",
+      "description": "Servicio privado de traslados puerta a puerta, encomiendas seguras y tours entre la Provincia del Guayas y la Provincia de Santa Elena, Ecuador.",
+      "providerMobility": "dynamic",
+      "url": "https://raal.codeleo.dev/",
+      "image": "https://media.codeleo.dev/raal/raal.jpg",
+      "logo": "https://media.codeleo.dev/raal/raal.jpg",
+      "currenciesAccepted": "USD",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "EC",
+        "addressRegion": "Guayas",
+        "addressLocality": "Guayaquil"
+      },
+      "areaServed": [
+        { "@type": "AdministrativeArea", "name": "Provincia del Guayas" },
+        { "@type": "AdministrativeArea", "name": "Provincia de Santa Elena" },
+        { "@type": "City", "name": "Guayaquil" },
+        { "@type": "City", "name": "Salinas" },
+        { "@type": "City", "name": "La Libertad" },
+        { "@type": "City", "name": "Santa Elena" },
+        { "@type": "City", "name": "Ballenita" },
+        { "@type": "City", "name": "Manglaralto" },
+        { "@type": "City", "name": "Olón" },
+        { "@type": "City", "name": "Montañita" }
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Servicios de movilidad RAAL",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Traslados puerta a puerta",
+              "serviceType": "Traslado privado de pasajeros",
+              "description": "Recogida en el punto de origen exacto y entrega en la puerta del destino, entre Guayas y Santa Elena.",
+              "image": "https://media.codeleo.dev/raal/puerta-puerta.jpg",
+              "provider": { "@id": "https://raal.codeleo.dev/#negocio" }
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Encomiendas y envíos seguros",
+              "serviceType": "Transporte de paquetería y documentos",
+              "description": "Traslado de paquetes y documentos urgentes entre Guayas y Santa Elena con seguimiento directo.",
+              "image": "https://media.codeleo.dev/raal/encomiendas.jpg",
+              "provider": { "@id": "https://raal.codeleo.dev/#negocio" }
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Tours y recorridos turísticos",
+              "serviceType": "Tour privado",
+              "description": "Recorridos privados por La Lobería, Chipipe, miradores de la Ruta del Spondylus y avistamiento de ballenas jorobadas en temporada.",
+              "image": "https://media.codeleo.dev/raal/recorrido.png",
+              "provider": { "@id": "https://raal.codeleo.dev/#negocio" }
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Registro fotográfico del viaje",
+              "serviceType": "Servicio complementario de fotografía",
+              "description": "Registro fotográfico de los mejores momentos del recorrido, incluido como parte de la experiencia de viaje.",
+              "provider": { "@id": "https://raal.codeleo.dev/#negocio" }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://raal.codeleo.dev/#sitio",
+      "url": "https://raal.codeleo.dev/",
+      "name": "RAAL · Servicios de Movilidad y Traslados",
+      "inLanguage": "es-EC",
+      "publisher": { "@id": "https://raal.codeleo.dev/#negocio" }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://raal.codeleo.dev/#pagina",
+      "url": "https://raal.codeleo.dev/",
+      "name": "RAAL · Servicios de Movilidad y Traslados · Guayas y Santa Elena",
+      "description": "Traslados privados puerta a puerta entre Guayas y Santa Elena: pasajeros, encomiendas y tours por la Ruta del Spondylus.",
+      "inLanguage": "es-EC",
+      "isPartOf": { "@id": "https://raal.codeleo.dev/#sitio" },
+      "about": { "@id": "https://raal.codeleo.dev/#negocio" },
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://media.codeleo.dev/raal/raal.jpg",
+        "width": 1122,
+        "height": 1122
+      }
+    }
+  ]
+}
+</script>
+
+<!-- ========== Pendientes de datos reales ==========
+     · Reemplazar "TU_NUMERO_AQUI" en los 3 enlaces wa.me por el número real (ej. 593XXXXXXXXX).
+     · En el JSON-LD de arriba añadir cuando estén disponibles:
+         "telephone": "+593XXXXXXXXX",
+         "email": "reservas@raal.codeleo.dev",
+         "sameAs": ["https://www.instagram.com/...", "https://www.facebook.com/..."]
+     · Para una vista previa perfecta en WhatsApp/LinkedIn, subir una imagen 1200x630
+       a https://media.codeleo.dev/raal/og-raal.jpg y actualizar og:image / twitter:image. -->
 </head>
 <body>
 

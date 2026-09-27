@@ -1,0 +1,14 @@
+# robots.txt · RAAL Servicios de Movilidad
+# Sitio público: todo el contenido puede rastrearse e indexarse.
+
+User-agent: *
+Allow: /
+
+# Rastreo sin límite de velocidad para los bots de búsqueda principales
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+Sitemap: https://raal.codeleo.dev/sitemap.xml
